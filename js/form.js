@@ -6,10 +6,40 @@ $(function() {
     // Get the messages div.
     var formMessages = $('#form-messages');
 
+    // Restrict phone input to numbers only
+    $('#phone').on('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
     // Set up an event listener for the contact form.
     $(form).submit(function(e) {
         // Stop the browser from submitting the form.
         e.preventDefault();
+
+        // Validation
+        var firstname = $('#firstname').val().trim();
+        var lastname = $('#lastname').val().trim();
+        var email = $('#email').val().trim();
+        var phone = $('#phone').val().trim();
+        var message = $('#message').val().trim();
+
+        if (firstname === '' || lastname === '' || email === '' || phone === '' || message === '') {
+            $(formMessages).removeClass('success info').addClass('error');
+            $(formMessages).text('Please fill in all fields.');
+            return;
+        }
+
+        if (!/^[0-9]+$/.test(phone)) {
+            $(formMessages).removeClass('success info').addClass('error');
+            $(formMessages).text('Phone number must contain only numbers.');
+            return;
+        }
+
+        if (message.length < 100) {
+            $(formMessages).removeClass('success info').addClass('error');
+            $(formMessages).text('Message must be at least 100 characters long.');
+            return;
+        }
 
         // Show loading message
         $(formMessages).removeClass('error success').addClass('info');

@@ -333,15 +333,15 @@
 
                            <!-- Phone Number -->
                            <div class="form-group col-lg-6">
-                              <input type="phone" id="phone" name="phone" class="form-control" placeholder="Phone number"
-                                 required>
+                              <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone number"
+                                 required pattern="[0-9]+" title="Please enter only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                               <i class="fa fa-phone"></i>
                            </div>
 
                            <!-- Message -->
                            <div class="form-group col-lg-12">
                               <textarea id="message" name="message" class="form-control" placeholder="Message"
-                                 rows="6"></textarea>
+                                 rows="6" required minlength="100"></textarea>
                               <i class="fa fa-pen"></i>
                            </div>
 
